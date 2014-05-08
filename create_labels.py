@@ -13,7 +13,7 @@ def process_path(line):
     politician = filename.split('_')[0].split('-')[1].upper()
     return politician
 
-def write_colors(politician_to_color, topics_filename="topics", labels_filename="labels"):
+def write_colors(politician_to_color, topics_filename="topics"):
     with open(topics_filename) as f:
         contents = f.readlines()
         contents.pop(0)
@@ -34,7 +34,6 @@ def read_labels(ideal_pts_filename="ideal_points.csv"):
 if __name__ == "__main__":
     ideal_pts_filename = sys.argv[1]
     topics_filename = sys.argv[2]
-    labels_filename = sys.argv[3]
 
     politician_to_color = read_labels(ideal_pts_filename)
-    write_colors(politician_to_color, topics_filename, labels_filename)
+    write_colors(politician_to_color, topics_filename)

@@ -1,16 +1,15 @@
 ; Generate a topic model
 ;
 
-MALLET_BIN=~/bin/mallet-2.0.7/bin/mallet
 NUM_TOPICS=35
 PERPLEXITY=35.0
 NUM_SENTENCES_IN_SUMMARY=3
 
 senate_speeches.mallet <-
-  $MALLET_BIN import-dir --input ./senate_speeches --output $OUTPUT --keep-sequence --remove-stopwords
+  $MALLET_HOME/bin/mallet import-dir --input ./senate_speeches --output $OUTPUT --keep-sequence --remove-stopwords
 
 topics,topic_vectors <- senate_speeches.mallet
-  $MALLET_BIN train-topics --input $INPUT --num-topics $NUM_TOPICS \
+  $MALLET_HOME/bin/mallet train-topics --input $INPUT --num-topics $NUM_TOPICS \
                            --output-topic-keys topic_vectors --output-doc-topics topics
 speeches <- topics
   python create_speeches.py $INPUT > $OUTPUT
@@ -25,9 +24,9 @@ topics_2d <- topics_pts
   python tsne.py $INPUT $NUM_TOPICS $PERPLEXITY $OUTPUT
 
 topic_labels <- topic_vectors
-  python create_topics_labels.py $INPUT > $OUTPUT
+  python create_topic_labels.py $INPUT > $OUTPUT
 
-senate_data <- topics_2d, speeches, topic_labels, topic_pts, summaries
+senate_data <- topics_2d, speeches, topic_labels, topics_pts, summaries
   python generate_data.py topics_2d speeches ideal_points.csv topic_labels topics_pts summaries > senate_data
 
 summaries <- speeches

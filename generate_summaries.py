@@ -23,7 +23,7 @@ def summarize(filename, num_sentences):
     summarizer.stop_words = get_stop_words("english")
     summary = ""
     for sentence in summarizer(parser.document, num_sentences):
-        summary += sentence.__unicode__().encode('ascii', 'ignore').strip() + " " 
+        summary += sentence.__unicode__().encode('ascii', 'ignore').replace('\"', '').replace('\'', '').strip() + " " 
     return summary
 
 if __name__ == "__main__":

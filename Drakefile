@@ -1,7 +1,7 @@
 ; Generate a topic model
 ;
 
-NUM_TOPICS=35
+NUM_TOPICS=50
 PERPLEXITY=35.0
 NUM_SENTENCES_IN_SUMMARY=3
 
